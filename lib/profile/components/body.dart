@@ -13,7 +13,7 @@ class Body extends StatelessWidget {
           ProfilePic(),
           SizedBox(height: 20),
           ProfileMenu(
-            text: "My Account",
+            text: "Shop@aphrodite.com",
             icon: "assets/icons/User Icon.svg",
             press: () => {},
           ),

@@ -13,8 +13,9 @@ class Product {
   Brand brand;
   Brand model;
   Brand collection;
-  List<Productdetails> productdetails;
-
+  int imageId;
+  //List<Productdetails> productdetails;
+  Detail detail;
   Product(
       {this.id,
       this.name,
@@ -24,7 +25,9 @@ class Product {
       this.brand,
       this.model,
       this.collection,
-      this.productdetails,
+      this.imageId,
+      //this.productdetails,
+      this.detail,
       Product item});
 
   Product.fromJson(Map<String, dynamic> json) {
@@ -33,18 +36,20 @@ class Product {
     description = json['description'];
     price = json['price'];
     cost = json['cost'];
+    imageId = json['image_id'];
     brand = json['brand'] != null ? new Brand.fromJson(json['brand']) : null;
     model = json['model'] != null ? new Brand.fromJson(json['model']) : null;
     collection = json['collection'] != null
         ? new Brand.fromJson(json['collection'])
         : null;
-    if (json['productdetails'] != null) {
+    /* if (json['productdetails'] != null) {
       // ignore: deprecated_member_use
       productdetails = new List<Productdetails>();
       json['productdetails'].forEach((v) {
         productdetails.add(new Productdetails.fromJson(v));
       });
-    }
+    }*/
+    detail = json['detail'] != null ? new Detail.fromJson(json['model']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -54,6 +59,7 @@ class Product {
     data['description'] = this.description;
     data['price'] = this.price;
     data['cost'] = this.cost;
+    data['image_id'] = this.imageId;
     if (this.brand != null) {
       data['brand'] = this.brand.toJson();
     }
@@ -63,9 +69,8 @@ class Product {
     if (this.collection != null) {
       data['collection'] = this.collection.toJson();
     }
-    if (this.productdetails != null) {
-      data['productdetails'] =
-          this.productdetails.map((v) => v.toJson()).toList();
+    if (this.detail != null) {
+      data['productdetails'] = this.detail.toJson();
     }
     return data;
   }
@@ -175,5 +180,79 @@ Future<List<Productdetails>> fetchProductdetails(http.Client client) async {
     }
   } else {
     throw Exception('Fail to Load');
+  }
+}
+
+class Detail {
+  int id;
+  int productId;
+  int price;
+  int cost;
+  String color;
+  String gender;
+  int sizeId;
+  int imageId;
+  int quanity;
+  Size size;
+
+  Detail(
+      {this.id,
+      this.productId,
+      this.price,
+      this.cost,
+      this.color,
+      this.gender,
+      this.sizeId,
+      this.imageId,
+      this.quanity,
+      this.size});
+
+  Detail.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    productId = json['product_id'];
+    price = json['price'];
+    cost = json['cost'];
+    color = json['color'];
+    gender = json['gender'];
+    sizeId = json['size_id'];
+    imageId = json['image_id'];
+    quanity = json['quanity'];
+    size = json['size'] != null ? new Size.fromJson(json['size']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['product_id'] = this.productId;
+    data['price'] = this.price;
+    data['cost'] = this.cost;
+    data['color'] = this.color;
+    data['gender'] = this.gender;
+    data['size_id'] = this.sizeId;
+    data['image_id'] = this.imageId;
+    data['quanity'] = this.quanity;
+    if (this.size != null) {
+      data['size'] = this.size.toJson();
+    }
+    return data;
+  }
+}
+
+class Size {
+  int id;
+  String name;
+
+  Size({this.id, this.name});
+
+  Size.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    return data;
   }
 }

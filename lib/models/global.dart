@@ -6,8 +6,6 @@ const SERVER_NAME_DETAIl =
 
 const SERVER_NAME_USER = 'https://aphrodite-ecom.herokuapp.com/users/login';
 
-const HINHANH = 'https://aphrodite-ecom.herokuapp.com/routes/2.jpg';
-
 const ORDERS = 'https://aphrodite-ecom.herokuapp.com/orders/all';
 
 const CREATEORDER = 'https://aphrodite-ecom.herokuapp.com/orders/';

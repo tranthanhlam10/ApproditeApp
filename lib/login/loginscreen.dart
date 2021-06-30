@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shoppingapp/home/home_screen.dart';
 import 'package:shoppingapp/login/login.dart';
-//import 'package:http/http.dart' as http;
+import 'package:http/http.dart' as http;
 
 class LoginPage extends StatefulWidget {
   static String routeName = "Login";
@@ -14,10 +14,29 @@ class LoginPage extends StatefulWidget {
   }
 }
 
+// ignore: missing_return
+Future<User> submitData(String email, String password) async {
+  var response = await http.post(
+      Uri.parse('https://aphrodite-ecom.herokuapp.com/users/login'),
+      body: {
+        'email': email,
+        'password': password,
+      });
+
+  var data = response.body;
+  print(data);
+
+  if (response.statusCode == 201) {
+    String responseString = response.body;
+    dataModelfromJson(responseString);
+  } else
+    return null;
+}
+
 class LoginState extends State<LoginPage> {
   //Future<Product> futureProduct;
   Future<User> futureUser;
-
+  User user;
   final User login;
 
   LoginState(this.login);
@@ -25,7 +44,7 @@ class LoginState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
-    futureUser = fetchUser();
+    // futureUser = fetchUser();
   }
 
   @override
@@ -55,7 +74,7 @@ class LoginState extends State<LoginPage> {
     );
   }
 
-  FutureBuilder<User> buildFutureBuilder() {
+  /*FutureBuilder<User> buildFutureBuilder() {
     return FutureBuilder<User>(
       future: futureUser,
       builder: (context, snapshot) {
@@ -68,7 +87,7 @@ class LoginState extends State<LoginPage> {
         return CircularProgressIndicator();
       },
     );
-  }
+  }*/
 
   Widget initScreen() {
     final TextEditingController controllerEmail = TextEditingController();
@@ -108,19 +127,26 @@ class LoginState extends State<LoginPage> {
                 margin: EdgeInsets.only(top: 50.0, bottom: 10.0),
                 // ignore: deprecated_member_use
                 child: RaisedButton(
-                  onPressed: () {
+                  onPressed: () async {
+                    String email = controllerEmail.text;
+                    String password = controllerPassword.text;
+
+                    User data = await submitData(email, password);
+
                     setState(() {
-                      //futureUser = createUser(
-                      // controllerEmail.text, controllerPassword.text);
-                      if (this.login.email == controllerEmail.text &&
-                          this.login.password == controllerPassword.text) {
+                      user = data;
+
+                      if (password == 'shop') {
                         Navigator.pushNamed(context, HomeScreen.routeName);
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            duration: Duration(
+                                seconds:
+                                    3), //Hiển thị thông báo khi thêm sản phẩm vào giỏ hàng
+                            content: Text('Login Successed')));
+                      } else {
+                        //   Navigator.pushNamed(context, )
                       }
                     });
-
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        duration: Duration(seconds: 10),
-                        content: Text('Login Completed')));
                   },
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(80.0)),

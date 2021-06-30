@@ -3,9 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:shoppingapp/cart/components/cart.dart';
 import 'package:shoppingapp/constants.dart';
 // ignore: unused_import
-import 'package:shoppingapp/login/loginpage.dart';
 import 'package:shoppingapp/routes.dart';
-
 import 'package:shoppingapp/screens/splash/splash_screens.dart';
 
 void main() {
@@ -22,6 +20,8 @@ class MyApp extends StatelessWidget {
             value: Cart(),
           )
         ],
+
+        
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Aphrodite App',

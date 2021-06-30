@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:shoppingapp/models/global.dart';
-import 'package:shoppingapp/models/product_detail.dart';
-import 'package:http/http.dart' as http;
+import 'package:shoppingapp/check_out/order.dart';
 
-class ProductCard extends StatelessWidget {
-  ProductCard({this.item, this.productdetails, this.press});
+class OrderCard extends StatelessWidget {
+  OrderCard({this.order, this.press});
 
-  final Product item;
-  final Productdetails productdetails;
+  final Order order;
+
   final Function press;
 
   Widget build(BuildContext context) {
@@ -19,33 +17,26 @@ class ProductCard extends StatelessWidget {
           child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                Image.network(
-                  'https://aphrodite-ecom.herokuapp.com/routes/${this.item.id}.jpg', // lấy hình ảnh từ id
-                  width: 150,
-                ),
+                //Image.network(
+                //'https://ibb.co/25S4brZ', // lấy hình ảnh từ id
+                //width: 150,
+                //),
                 Expanded(
                     child: Container(
                         padding: EdgeInsets.all(5),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: <Widget>[
-                            Text(this.item.name,
+                            Text(this.order.status,
                                 style: TextStyle(fontWeight: FontWeight.bold)),
                             Text(
-                              "Price:${this.item.price.toString()}",
+                              "OrderPrice: ${this.order.totalPrice.toString()}",
                               style: TextStyle(color: Colors.redAccent),
                             ),
-                            Text("Brand:${this.item.brand.name}"),
+                            Text("Address: ${this.order.address}"),
                           ],
                         )))
               ]),
         ));
   }
-}
-
-int detail() {
-  // ignore: unused_local_variable
-  Productdetails detail;
-  fetchProductdetails(http.Client());
-  return detail.price;
 }

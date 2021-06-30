@@ -3,6 +3,11 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
 
+Orderdetails detailfromJson(String str) =>
+    Orderdetails.fromJson(json.decode(str));
+
+String dataModeltoJson(Orderdetails data) => json.encode(data.toJson());
+
 class Orderdetails {
   int id;
   int orderId;

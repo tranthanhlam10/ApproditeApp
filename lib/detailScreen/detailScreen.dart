@@ -37,7 +37,7 @@ class ProductPage extends StatelessWidget {
                     child: Hero(
                       tag: 2,
                       child: Image.network(
-                        HINHANH,
+                        'https://aphrodite-ecom.herokuapp.com/routes/${this.item.id}.jpg',
                         width: getProportionateScreenWidth(238),
                       ),
                     ),

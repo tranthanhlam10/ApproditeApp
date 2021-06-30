@@ -3,9 +3,9 @@ import 'package:provider/provider.dart';
 import 'package:shoppingapp/cart/components/cart.dart';
 import 'package:shoppingapp/check_out/order.dart';
 import 'package:shoppingapp/check_out/orderdetails.dart';
+import 'package:shoppingapp/models/global.dart';
 import 'package:shoppingapp/models/product_detail.dart';
-//import 'package:http/http.dart' as http;
-//import 'package:shoppingapp/models/product_detail.dart';
+import 'package:http/http.dart' as http;
 
 class CreateAddressScreen extends StatefulWidget {
   static String routeName = "Check Out Screen";
@@ -18,12 +18,31 @@ class CreateAddressScreen extends StatefulWidget {
   }
 }
 
+// ignore: missing_return
+Future<Orderdetails> submitData(int orderId, int productId, int quanity) async {
+  var response = await http.post(Uri.parse(ORDERDETAILS), body: {
+    //'id': id,
+    'order_id': orderId.toString(),
+    'product_id': productId.toString(),
+    'quanity': quanity.toString(),
+  });
+
+  var data = response.body;
+  print(data);
+
+  if (response.statusCode == 201) {
+    String responseString = response.body;
+    detailfromJson(responseString);
+  } else
+    return null;
+}
+
 class LunchState extends State<CreateAddressScreen> {
   //Future<Product> futureProduct;
   Future<Order> futureOrder;
   Future<Orderdetails> futureOrderdetail;
   final Product item;
-
+  Orderdetails detais;
   LunchState(this.item);
 
   @override
@@ -149,7 +168,8 @@ class LunchState extends State<CreateAddressScreen> {
                 margin: EdgeInsets.only(top: 50.0, bottom: 10.0),
                 // ignore: deprecated_member_use
                 child: RaisedButton(
-                  onPressed: () {
+                  onPressed: () async {
+                    Orderdetails data = await submitData(2, 5, 1);
                     setState(() {
                       futureOrder = createOrder(
                           2,
@@ -158,8 +178,7 @@ class LunchState extends State<CreateAddressScreen> {
                           'pending',
                           cart.totalAmount); // thêm đơn đặt hàng
 
-                      //   futureOrderdetail = createOrderdetails(13, 2, ,
-                      //    cart.itemCount); // thêm chi tiết đơn đặt hàng (mã chi tiết đơn đặt hàng, mã đơn hàng, mã sản phẩm , số lượng)
+                      detais = data;
                     });
 
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(

@@ -3,6 +3,10 @@ import 'dart:convert';
 import 'dart:async';
 import 'package:shoppingapp/models/global.dart';
 
+Order dataModelfromJson(String str) => Order.fromJson(json.decode(str));
+
+String dataModeltoJson(Order data) => json.encode(data.toJson());
+
 class Order {
   int id;
   int userId;
@@ -39,6 +43,24 @@ class Order {
     data['status'] = this.status;
     data['total_price'] = this.totalPrice;
     return data;
+  }
+}
+
+Future<List<Order>> fetchOrder(
+  http.Client client,
+) async {
+  final response = await client.get(Uri.parse(ORDERS)); // link ở postman
+  if (response.statusCode == 200) {
+    Map<String, dynamic> mapResponse = json.decode(response.body);
+    if (mapResponse["result"] == "oke") {
+      final productp = mapResponse["data"].cast<Map<String, dynamic>>();
+      final listofproduct = await productp.map<Order>((json) {
+        return Order.fromJson(json);
+      }).toList();
+      return listofproduct;
+    }
+  } else {
+    throw Exception('Fail to Load');
   }
 }
 

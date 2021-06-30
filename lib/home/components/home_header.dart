@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:shoppingapp/admin/orders_admin.dart';
 import 'package:shoppingapp/cart/cart_screen.dart';
 import 'package:shoppingapp/home/components/icon_btn_with_couter.dart';
 
-//import 'package:shoppingapp/constants.dart';
+import 'package:shoppingapp/constants.dart';
 import 'package:shoppingapp/size_config.dart';
 import 'search_field.dart';
 
@@ -27,7 +28,8 @@ class HomeHeader extends StatelessWidget {
           IconBtnWithCounter(
             svgSrc: "assets/icons/Bell.svg",
             numOfitem: 3,
-            press: () {},
+            press: () =>
+                Navigator.pushNamed(context, AdminOdersScren.routeName),
           ),
         ],
       ),

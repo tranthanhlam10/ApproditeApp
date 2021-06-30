@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shoppingapp/check_out/order.dart';
 //import 'package:flutter_svg/flutter_svg.dart';
-import 'package:shoppingapp/details/detail_screen.dart';
-
 import 'package:shoppingapp/constants.dart';
 import 'package:shoppingapp/models/global.dart';
 import 'package:shoppingapp/models/product_detail.dart';
@@ -12,13 +11,15 @@ class ProductCard extends StatelessWidget {
     Key key,
     this.width = 140,
     this.aspectRetio = 1.02,
-    @required this.product,
+    this.product,
     this.press,
+    this.order,
   }) : super(key: key);
 
   final double width, aspectRetio;
   final Product product;
   final GestureTapCallback press;
+  final Order order;
 
   @override
   Widget build(BuildContext context) {
@@ -27,11 +28,11 @@ class ProductCard extends StatelessWidget {
       child: SizedBox(
         width: getProportionateScreenWidth(width),
         child: GestureDetector(
-          onTap: () => Navigator.pushNamed(
-            context,
-            DetailsScreen.routeName,
-            // arguments: ProductDetailsArguments(product: product),
-          ),
+          //  onTap: () => Navigator.pushNamed(
+          //    context,
+          //   DetailsScreen.routeName,
+          // arguments: ProductDetailsArguments(product: product),
+          //),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -43,18 +44,18 @@ class ProductCard extends StatelessWidget {
                     color: kSecondaryColor.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(15),
                   ),
-                  child: Hero(
-                    tag: product.id.toString(),
-                    child: Image.network(
-                      HINHANH,
-                      width: 150,
-                    ),
-                  ),
+                  // child: Hero(
+                  // tag: product.id.toString(),
+                  //  child: Image.network(
+                  //  'https://aphrodite-ecom.herokuapp.com/routes/${this.product.imageId}.jpg',
+                  //width: 150,
+                  // ),
                 ),
               ),
+              //  ),
               const SizedBox(height: 10),
               Text(
-                this.product.name,
+                this.order.id.toString(),
                 style: TextStyle(color: Colors.black),
                 maxLines: 2,
               ),
@@ -62,7 +63,7 @@ class ProductCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "\$${product.price}",
+                    "\$${this.order.status}",
                     style: TextStyle(
                       fontSize: getProportionateScreenWidth(18),
                       fontWeight: FontWeight.w600,

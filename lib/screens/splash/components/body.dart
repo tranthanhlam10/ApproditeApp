@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shoppingapp/constants.dart';
-// ignore: unused_import
 import 'package:shoppingapp/home/home_screen.dart';
-// ignore: unused_import
-import 'package:shoppingapp/login/loginpage.dart';
 import 'package:shoppingapp/screens/splash/components/splash_contents.dart';
 import 'package:shoppingapp/size_config.dart';
 

@@ -3,6 +3,10 @@ import 'dart:convert';
 import 'package:shoppingapp/models/global.dart';
 import 'package:http/http.dart' as http;
 
+User dataModelfromJson(String str) => User.fromJson(json.decode(str));
+
+String dataModeltoJson(User data) => json.encode(data.toJson());
+
 class User {
   int id;
   String name;
@@ -86,7 +90,7 @@ Future<User> createUser(String email, String password) async {
   }
 }
 
-Future<User> fetchUser() async {
+/*Future<User> fetchUser() async {
   final response = await http
       .get(Uri.parse('https://aphrodite-ecom.herokuapp.com/users/login'));
 
@@ -99,4 +103,4 @@ Future<User> fetchUser() async {
     // then throw an exception.
     throw Exception('Failed to load album');
   }
-}
+}*/
