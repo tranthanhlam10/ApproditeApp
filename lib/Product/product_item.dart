@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shoppingapp/models/global.dart';
 import 'package:shoppingapp/models/product_detail.dart';
 import 'package:http/http.dart' as http;
 
@@ -19,10 +18,10 @@ class ProductCard extends StatelessWidget {
           child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                Image.network(
-                  'https://aphrodite-ecom.herokuapp.com/routes/${this.item.id}.jpg', // lấy hình ảnh từ id
-                  width: 150,
-                ),
+                // Image.network(
+                //  'https://aphrodite-ecom.herokuapp.com/routes/${this.item.id}.jpg', // lấy hình ảnh từ id
+                //  width: 150,
+                // ),
                 Expanded(
                     child: Container(
                         padding: EdgeInsets.all(5),
@@ -32,10 +31,10 @@ class ProductCard extends StatelessWidget {
                             Text(this.item.name,
                                 style: TextStyle(fontWeight: FontWeight.bold)),
                             Text(
-                              "Price:${this.item.price.toString()}",
+                              "Price: ${this.item.price.toString()}",
                               style: TextStyle(color: Colors.redAccent),
                             ),
-                            Text("Brand:${this.item.brand.name}"),
+                            //Text("Brand: ${this.item.brand.name}"),
                           ],
                         )))
               ]),

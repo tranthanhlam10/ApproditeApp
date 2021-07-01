@@ -4,6 +4,10 @@ import 'dart:convert';
 import 'package:shoppingapp/models/global.dart';
 import 'package:http/http.dart' as http;
 
+Product productfromJson(String str) => Product.fromJson(json.decode(str));
+
+String producttoJson(Product data) => json.encode(data.toJson());
+
 class Product {
   int id;
   String name;
