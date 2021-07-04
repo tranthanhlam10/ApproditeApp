@@ -18,10 +18,10 @@ class ProductCard extends StatelessWidget {
           child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                // Image.network(
-                //  'https://aphrodite-ecom.herokuapp.com/routes/${this.item.id}.jpg', // lấy hình ảnh từ id
-                //  width: 150,
-                // ),
+                Image.network(
+                  'https://aphrodite-ecom.herokuapp.com/routes/${this.item.id}.jpg', // lấy hình ảnh từ id
+                  width: 150,
+                ),
                 Expanded(
                     child: Container(
                         padding: EdgeInsets.all(5),
@@ -34,7 +34,7 @@ class ProductCard extends StatelessWidget {
                               "Price: ${this.item.price.toString()}",
                               style: TextStyle(color: Colors.redAccent),
                             ),
-                            //Text("Brand: ${this.item.brand.name}"),
+                            Text("Brand: ${this.item.brand.name}"),
                           ],
                         )))
               ]),

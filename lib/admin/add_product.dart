@@ -4,7 +4,7 @@ import 'package:shoppingapp/models/global.dart';
 import 'package:shoppingapp/models/product_detail.dart';
 
 class ManageProduct extends StatefulWidget {
-  static String routeName = "Manage Product";
+  static String routeName = "All New Product";
   final Product items;
 
   const ManageProduct({Key key, this.items}) : super(key: key);
@@ -45,9 +45,7 @@ class ManageState extends State<ManageProduct> {
   final Product item;
   Product product;
   ManageState(this.item);
-  String selectedValueCollect;
-  String seletedValueBrand;
-  String selectedValueModel;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,7 +54,7 @@ class ManageState extends State<ManageProduct> {
           "Product Manage",
           style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Colors.orange,
+        backgroundColor: Colors.red,
         leading: GestureDetector(
           onTap: () {
             Navigator.pop(context);
@@ -82,6 +80,9 @@ class ManageState extends State<ManageProduct> {
     final TextEditingController controllerImageid = TextEditingController();
     final TextEditingController controllerPrice = TextEditingController();
     final TextEditingController controllerCost = TextEditingController();
+    String _selectedValueCollect;
+    String _seletedValueBrand;
+    String _selectedValueModel;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -155,7 +156,7 @@ class ManageState extends State<ManageProduct> {
           child: DropdownButtonFormField(
               hint: Text('Select Collection'),
               icon: Icon(Icons.arrow_circle_down),
-              value: selectedValueCollect,
+              value: _selectedValueCollect,
               items: ['Casual', 'Sport'].map((value) {
                 return DropdownMenuItem<String>(
                   child: Text(value),
@@ -164,7 +165,7 @@ class ManageState extends State<ManageProduct> {
               }).toList(),
               onChanged: (value) {
                 setState(() {
-                  selectedValueCollect = value;
+                  _selectedValueCollect = value;
                 });
               }),
         ),
@@ -173,7 +174,7 @@ class ManageState extends State<ManageProduct> {
           child: DropdownButtonFormField(
               hint: Text('Select Brand'),
               icon: Icon(Icons.arrow_circle_down),
-              value: seletedValueBrand,
+              value: _seletedValueBrand,
               items: ['Nike', 'Adidas', 'Gucci'].map((value) {
                 return DropdownMenuItem<String>(
                   child: Text(value),
@@ -182,7 +183,7 @@ class ManageState extends State<ManageProduct> {
               }).toList(),
               onChanged: (value) {
                 setState(() {
-                  seletedValueBrand = value;
+                  _seletedValueBrand = value;
                 });
               }),
         ),
@@ -191,7 +192,7 @@ class ManageState extends State<ManageProduct> {
           child: DropdownButtonFormField(
               icon: Icon(Icons.arrow_circle_down),
               hint: Text('Select Models'),
-              value: selectedValueModel,
+              value: _selectedValueModel,
               items: ['Shirts', 'Jeans', 'Sneakers'].map((value) {
                 return DropdownMenuItem<String>(
                   child: Text(value),
@@ -200,7 +201,7 @@ class ManageState extends State<ManageProduct> {
               }).toList(),
               onChanged: (value) {
                 setState(() {
-                  selectedValueModel = value;
+                  _selectedValueModel = value;
                 });
               }),
         ),
@@ -210,10 +211,17 @@ class ManageState extends State<ManageProduct> {
                 // ignore: deprecated_member_use
                 child: RaisedButton(
                   onPressed: () async {
-                    Product data = await submitData(
-                        'Nike MJ', 'Michel Jordan', 1, 1000, 10, 2, 1, 3);
+                    Product data1 = await submitData(
+                        controllerName.text,
+                        controllerDes.text,
+                        1,
+                        int.parse(controllerPrice.text),
+                        int.parse(controllerCost.text),
+                        2,
+                        1,
+                        3);
                     setState(() {
-                      product = data;
+                      product = data1;
                     });
 
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(

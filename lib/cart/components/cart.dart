@@ -1,4 +1,3 @@
-//import 'package:flutter_cart/flutter_cart.dart';
 import 'package:flutter/foundation.dart';
 
 class CartItem {

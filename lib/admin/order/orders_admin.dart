@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shoppingapp/admin/manage_product.dart';
-import 'package:shoppingapp/admin/orders_grid_admin.dart';
+import 'package:shoppingapp/admin/add_product.dart';
+import 'package:shoppingapp/admin/edit/admin_product.dart';
+import 'package:shoppingapp/admin/order/orders_grid_admin.dart';
 import 'package:shoppingapp/check_out/order.dart';
 import 'package:http/http.dart' as http;
 
 class AdminOdersScren extends StatelessWidget {
-  static String routeName = "test";
+  static String routeName = "Admin";
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +42,7 @@ class AdminOdersScren extends StatelessWidget {
           drawer: Drawer(
             child: ListView(
               padding: EdgeInsets.zero,
-              children: const <Widget>[
+              children: <Widget>[
                 DrawerHeader(
                   decoration: BoxDecoration(
                     color: Colors.red,
@@ -55,14 +56,36 @@ class AdminOdersScren extends StatelessWidget {
                   ),
                 ),
                 ListTile(
-                  leading: Icon(Icons.message),
-                  title: Text('Manage Product'),
+                  leading: Icon(Icons.add_circle_outline),
+                  title: Text('Add Product'),
                   enabled: true,
-                  // onTap: _tapCallback,
+                  onTap: () {
+                    Navigator.pushNamed(context, ManageProduct.routeName);
+                  },
                 ),
                 ListTile(
-                  leading: Icon(Icons.account_circle),
-                  title: const Text('Manage Order'),
+                  leading: Icon(Icons.delete_outline_outlined),
+                  title: Text('Delete Product'),
+                  enabled: true,
+                  onTap: () {
+                    Navigator.pushNamed(context, AdminProduct.routeName);
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.edit_outlined),
+                  title: Text('Edit Product'),
+                  enabled: true,
+                  onTap: () {
+                    Navigator.pushNamed(context, AdminProduct.routeName);
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.analytics_outlined),
+                  title: const Text('Confirm Order'),
+                  enabled: true,
+                  onTap: () {
+                    Navigator.pushNamed(context, AdminOdersScren.routeName);
+                  },
                 ),
               ],
             ),
@@ -81,14 +104,4 @@ class AdminOdersScren extends StatelessWidget {
               }),
         ));
   }
-
-  void _tapCallback() {
-    BuildContext context;
-    Navigator.pushNamed(context, ManageProduct.routeName);
-  }
-}
-
-void managescreen() {
-  BuildContext context;
-  Navigator.pushNamed(context, ManageProduct.routeName);
 }

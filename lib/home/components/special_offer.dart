@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:shoppingapp/size_config.dart';
 import 'section_title.dart';
 
@@ -28,13 +27,13 @@ class SpecialOffers extends StatelessWidget {
               SpecialOfferCard(
                 image: "assets/images/Image Banner 2.png",
                 category: "Categories",
-                numOfBrands: 18,
+                numOfBrands: 3,
                 press: () {},
               ),
               SpecialOfferCard(
                 image: "assets/images/Image Banner 3.png",
                 category: "Fashion",
-                numOfBrands: 24,
+                numOfBrands: 3,
                 press: () {},
               ),
               SizedBox(width: getProportionateScreenWidth(20)),

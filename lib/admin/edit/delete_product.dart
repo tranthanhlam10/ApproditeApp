@@ -1,61 +1,53 @@
 import 'package:flutter/material.dart';
-import 'package:shoppingapp/admin/order/orders_admin.dart';
-
-import 'package:shoppingapp/home/home_screen.dart';
-import 'package:shoppingapp/login/login.dart';
 import 'package:http/http.dart' as http;
+import 'package:shoppingapp/models/product_detail.dart';
 
-class LoginPage extends StatefulWidget {
-  static String routeName = "Login";
-  final User user;
+class DeleteProduct extends StatefulWidget {
+  static String routeName = "Delete Product";
+  final Product item;
 
-  const LoginPage({Key key, this.user}) : super(key: key);
+  const DeleteProduct({Key key, this.item}) : super(key: key);
   @override
   State<StatefulWidget> createState() {
-    return LoginState(user);
+    return DeleteState(item);
   }
 }
 
-// ignore: missing_return
-Future<User> submitData(String email, String password) async {
-  var response = await http.post(
-      Uri.parse('https://aphrodite-ecom.herokuapp.com/users/login'),
-      body: {
-        'email': email,
-        'password': password,
-      });
+class DeleteState extends State<DeleteProduct> {
+  Future<Product> deleteData(
+    int id, //String name
+  ) async {
+    var response = await http.delete(
+        Uri.parse(
+            'https://aphrodite-ecom.herokuapp.com/products/${this.item.id}'),
+        body: {
+          'id': id.toString(),
+          // 'name': name.toString(),
+        });
 
-  var data = response.body;
-  print(data);
+    var data = response.body;
+    print(data);
 
-  if (response.statusCode == 201) {
-    String responseString = response.body;
-    dataModelfromJson(responseString);
-  } else
-    return null;
-}
-
-class LoginState extends State<LoginPage> {
-  Future<User> futureUser;
-  User user;
-  final User login;
-
-  LoginState(this.login);
-
-  @override
-  void initState() {
-    super.initState();
+    if (response.statusCode == 200) {
+      String responseString = response.body;
+      productfromJson(responseString);
+    } else
+      return null;
   }
+
+  final Product item;
+  Product product;
+  DeleteState(this.item);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Login",
+          " Delete Product ",
           style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Colors.orange,
+        backgroundColor: Colors.red,
         leading: GestureDetector(
           onTap: () {
             Navigator.pop(context);
@@ -75,19 +67,18 @@ class LoginState extends State<LoginPage> {
   }
 
   Widget initScreen() {
-    final TextEditingController controllerEmail = TextEditingController();
-    final TextEditingController controllerPassword = TextEditingController();
+    final TextEditingController controllerId = TextEditingController();
+    final TextEditingController controllerName = TextEditingController();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Container(
-          margin: EdgeInsets.only(top: 30.0, left: 30.0, right: 30.0),
+          margin: EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
           child: TextFormField(
-            controller: controllerEmail,
-            // obscureText: true,
+            controller: controllerId,
             decoration: InputDecoration(
-              labelText: "Enter your email", // Set text upper animation
+              labelText: "${this.item.id}", // Set text upper animation
               border: OutlineInputBorder(),
             ),
             minLines: 1,
@@ -96,12 +87,11 @@ class LoginState extends State<LoginPage> {
           ),
         ),
         Container(
-          margin: EdgeInsets.only(top: 30.0, left: 30.0, right: 30.0),
+          margin: EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
           child: TextFormField(
-            controller: controllerPassword,
-            obscureText: true,
+            controller: controllerName,
             decoration: InputDecoration(
-                labelText: "Password", border: OutlineInputBorder()),
+                labelText: "${this.item.name}", border: OutlineInputBorder()),
             minLines: 1,
             keyboardType: TextInputType.emailAddress,
             autofocus: false,
@@ -113,29 +103,17 @@ class LoginState extends State<LoginPage> {
                 // ignore: deprecated_member_use
                 child: RaisedButton(
                   onPressed: () async {
-                    String email = controllerEmail.text;
-                    String password = controllerPassword.text;
+                    Product data = await deleteData(
+                      this.item.id,
+                      //controllerName.text,
+                    );
+                    setState(() {
+                      product = data;
+                    });
 
-                    User data = await submitData(email, password);
-                    Navigator.pushNamed(context, HomeScreen.routeName);
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         duration: Duration(seconds: 3),
-                        content: Text('Login Successed')));
-                    setState(() {
-                      user = data;
-
-                      if (password == 'shop') {
-                        Navigator.pushNamed(context, HomeScreen.routeName);
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            duration: Duration(seconds: 3),
-                            content: Text('Login Successed')));
-                      } else {
-                        Navigator.pushNamed(context, AdminOdersScren.routeName);
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            duration: Duration(seconds: 3),
-                            content: Text('Login Successed')));
-                      }
-                    });
+                        content: Text('Delete Product Completed')));
                   },
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(80.0)),
@@ -155,7 +133,7 @@ class LoginState extends State<LoginPage> {
                           maxWidth: 300.0, minHeight: 40.0),
                       alignment: Alignment.center,
                       child: const Text(
-                        'Login',
+                        'Delete Product',
                         textAlign: TextAlign.center,
                         style: TextStyle(color: Colors.white),
                       ),

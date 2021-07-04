@@ -89,18 +89,3 @@ Future<User> createUser(String email, String password) async {
     throw Exception('Failed to create .');
   }
 }
-
-/*Future<User> fetchUser() async {
-  final response = await http
-      .get(Uri.parse('https://aphrodite-ecom.herokuapp.com/users/login'));
-
-  if (response.statusCode == 200) {
-    // If the server did return a 200 OK response,
-    // then parse the JSON.
-    return User.fromJson(jsonDecode(response.body));
-  } else {
-    // If the server did not return a 200 OK response,
-    // then throw an exception.
-    throw Exception('Failed to load album');
-  }
-}*/

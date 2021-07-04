@@ -15,7 +15,6 @@ class CartScreen extends StatelessWidget {
         appBar: AppBar(
           title: Text(
             'My Cart',
-            //  style: TextStyle(fontSize: 30, color: Theme.of(context).accentColor),
           ),
           backgroundColor: Colors.orange,
         ),

@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shoppingapp/Product/product_screen.dart';
-//import 'package:shoppingapp/ProductP/productP_all.dart';
-
 import 'package:shoppingapp/home/home_screen.dart';
-//import 'package:shoppingapp/login/loginpage.dart';
 import 'package:shoppingapp/login/loginscreen.dart';
 import 'package:shoppingapp/profile/profile_screen.dart';
-
 import '../constants.dart';
-
 import 'package:shoppingapp/enums.dart';
 
 class CustomBottomNavBar extends StatelessWidget {

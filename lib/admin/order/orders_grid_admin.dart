@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shoppingapp/admin/orders_admin_update.dart';
+import 'package:shoppingapp/admin/order/orders_admin_update.dart';
 import 'package:shoppingapp/check_out/order.dart';
 import 'package:http/http.dart' as http;
 
@@ -7,6 +7,7 @@ class OrdersList extends StatelessWidget {
   final List<Order> items;
   final Order order;
 
+  // ignore: missing_return
   Future<Order> updateData(String state, String url) async {
     var response =
         await http.put(Uri.parse(url), body: {'state': state.toString()});
@@ -24,24 +25,42 @@ class OrdersList extends StatelessWidget {
   OrdersList({Key key, @required this.items, this.order});
   @override
   Widget build(BuildContext context) {
-    // ignore: missing_return
-
     return ListView.builder(
       itemCount: items.length,
       itemBuilder: (context, index) {
         return GestureDetector(
-          child: OrderCard(
-            order: items[index],
-            //productdetails: detail[index],
-          ),
-          onTap: () async {
-            String url =
-                'https://aphrodite-ecom.herokuapp.com/orders/${this.items[index].id.toString()} ';
-            final OrderState state = await _asyncSimpleDialog(context);
-            print("Selected state is $state");
-            Order data = await updateData(state.toString(), url);
-          },
-        );
+            child: OrderCard(
+              order: items[index],
+              //productdetails: detail[index],
+            ),
+            onTap: () async {
+              String url =
+                  'https://aphrodite-ecom.herokuapp.com/orders/${this.items[index].id.toString()} ';
+              final OrderState state = await _asyncSimpleDialog(context);
+
+              if (state.toString() == 'OrderState.Pending') {
+                print("Selected state is $state");
+                Order data1 = await updateData('Pending', url);
+
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    duration: Duration(seconds: 3),
+                    content: Text('Order Confirmed')));
+              } else {
+                if (state.toString() == 'OrderState.Shipping') {
+                  Order data2 = await updateData('Shipping', url);
+                  print("Selected state is $state");
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      duration: Duration(seconds: 3),
+                      content: Text('Order Confirmed')));
+                } else {
+                  Order data3 = await updateData('Cancelled', url);
+                  print("Selected state is $state");
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      duration: Duration(seconds: 3),
+                      content: Text('Order Confirmed')));
+                }
+              }
+            });
       },
     );
   }

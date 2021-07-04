@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:shoppingapp/Product/product_item.dart';
-import 'package:shoppingapp/detailScreen/detailScreen.dart';
+import 'package:shoppingapp/admin/edit/delete_product.dart';
+import 'package:shoppingapp/admin/edit/edit_product.dart';
 import 'package:shoppingapp/models/product_detail.dart';
 
-class ProductList extends StatelessWidget {
+class AdminProductList extends StatelessWidget {
   final List<Product> items;
-  ProductList({Key key, this.items});
+
+  AdminProductList({Key key, this.items});
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -19,7 +21,15 @@ class ProductList extends StatelessWidget {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => ProductPage(
+                    builder: (context) => EditProduct(
+                          item: items[index],
+                        )));
+          },
+          onDoubleTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => DeleteProduct(
                           item: items[index],
                         )));
           },

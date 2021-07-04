@@ -21,7 +21,6 @@ class CreateAddressScreen extends StatefulWidget {
 // ignore: missing_return
 Future<Orderdetails> submitData(int orderId, int productId, int quanity) async {
   var response = await http.post(Uri.parse(ORDERDETAILS), body: {
-    //'id': id,
     'order_id': orderId.toString(),
     'product_id': productId.toString(),
     'quanity': quanity.toString(),
@@ -38,7 +37,6 @@ Future<Orderdetails> submitData(int orderId, int productId, int quanity) async {
 }
 
 class LunchState extends State<CreateAddressScreen> {
-  //Future<Product> futureProduct;
   Future<Order> futureOrder;
   Future<Orderdetails> futureOrderdetail;
   final Product item;
@@ -169,7 +167,8 @@ class LunchState extends State<CreateAddressScreen> {
                 // ignore: deprecated_member_use
                 child: RaisedButton(
                   onPressed: () async {
-                    Orderdetails data = await submitData(2, 5, 1);
+                    Orderdetails data =
+                        await submitData(2, 5, 1); // thêm chi tiết đơn đặt hàng
                     setState(() {
                       futureOrder = createOrder(
                           2,

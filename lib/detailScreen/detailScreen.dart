@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shoppingapp/components/default_button.dart';
-import 'package:shoppingapp/models/global.dart';
-import 'package:shoppingapp/size_config.dart';
 // thêm sản phẩm vào cart
 import 'package:shoppingapp/cart/components/cart.dart';
 import 'package:shoppingapp/models/product_detail.dart';
+import 'package:shoppingapp/size_config.dart';
 
 // ignore: must_be_immutable
 class ProductPage extends StatelessWidget {
